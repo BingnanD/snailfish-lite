@@ -31,7 +31,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSON;
-import me.duanbn.snailfish.core.Bootstrap;
+
+import lombok.extern.slf4j.Slf4j;
 import me.duanbn.snailfish.core.domain.pattern.DomainSPEC;
 import me.duanbn.snailfish.core.orm.PersistenceException;
 import me.duanbn.snailfish.core.orm.rdb.QueryDefaultImpl.WhereSQL;
@@ -41,8 +42,6 @@ import me.duanbn.snailfish.core.orm.rdb.dialect.Dialect.DBCategoryEnum;
 import me.duanbn.snailfish.util.collection.Lists;
 import me.duanbn.snailfish.util.collection.Maps;
 import me.duanbn.snailfish.util.lang.StringUtil;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class AbstractDataObjectDao<E> implements ApplicationContextAware, DataObjectDao<E, Long> {
@@ -647,8 +646,8 @@ public abstract class AbstractDataObjectDao<E> implements ApplicationContextAwar
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.appCtx = applicationContext;
-        Bootstrap bootstrap = this.appCtx.getBean(Bootstrap.class);
-        this.enableLog = bootstrap.isEnableSQLLog();
+        // Bootstrap bootstrap = this.appCtx.getBean(Bootstrap.class);
+        // this.enableLog = bootstrap.isEnableSQLLog();
     }
 
     /******************************************************************************
