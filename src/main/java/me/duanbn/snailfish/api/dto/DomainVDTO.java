@@ -2,7 +2,6 @@ package me.duanbn.snailfish.api.dto;
 
 import java.util.Date;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -11,17 +10,13 @@ public class DomainVDTO implements DomainDTOI {
 	private static final long serialVersionUID = 1L;
 
 	/** 数据库主键 */
-	@ApiModelProperty("数据库主键")
 	protected String id;
 
 	/** 创建时间 */
-	@ApiModelProperty("创建时间")
 	protected Date gmtCreate;
 	/** 修改时间 */
-	@ApiModelProperty("更新时间")
 	protected Date gmtModified;
 	/** 删除标识 */
-	@ApiModelProperty("是否删除")
 	protected boolean deleted;
 
 	public Long getIdAsLong() {
