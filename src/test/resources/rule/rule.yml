@@ -1,0 +1,31 @@
+---
+name: rule1
+description: 规则1
+condition:
+  1 == 1
+actions:
+  - $.data.a = 'a'
+  
+---
+name: rule1@@rule11
+description: 规则11
+condition:
+  1 == 1
+actions:
+  - $.data.aa = 'aa'
+  
+---
+name: rule2
+description: 规则2
+condition:
+  1 != 1
+actions:
+  - $.data.b = 'b'
+  
+---
+name: rule2@@rule22
+description: 规则22
+condition:
+  1 != 1
+actions:
+  - $.data.bb = 'bb'

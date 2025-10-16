@@ -1,0 +1,18 @@
+---
+name: a
+description: 插件A
+condition: plugin.scenario.person.name == "A"
+actions:
+   -
+---
+name: b
+description: 插件B
+condition: plugin.scenario.person.name == "B"
+actions:
+   -
+---
+name: c
+description: 插件C
+condition: plugin.scenario.person.name == "C"
+actions:
+   -
