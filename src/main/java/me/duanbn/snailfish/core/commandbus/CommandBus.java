@@ -105,8 +105,8 @@ public class CommandBus {
 	private static <T extends Response> T createResponse(CommandInvocation commandInvocation, Class commandClazz) {
 		Response commandResp = null;
 		try {
-			commandResp = (T) commandInvocation.getRespType().newInstance();
-		} catch (InstantiationException | IllegalAccessException e1) {
+			commandResp = (T) commandInvocation.getRespType().getDeclaredConstructor().newInstance();
+		} catch (Exception e1) {
 			throw new CommandException("总线内部异常，创建返回值实例失败 clazz=" + commandClazz);
 		}
 		return (T) commandResp;

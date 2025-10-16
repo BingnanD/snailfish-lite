@@ -45,7 +45,7 @@ public class DataObjectPropertyRowMapper<T> implements RowMapper<T> {
                 log.debug("columnCount: {}", columnCount);
             }
 
-            Object obj = this.clazz.newInstance();
+            Object obj = this.clazz.getDeclaredConstructor().newInstance();
             DbField dbField = null;
             String columnName = null;
             for (int i = 1; i <= columnCount; i++) {

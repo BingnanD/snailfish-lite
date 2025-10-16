@@ -8,11 +8,10 @@ import org.springframework.aop.framework.Advised;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.util.CollectionUtils;
 
+import lombok.Setter;
 import me.duanbn.snailfish.api.command.Command;
 import me.duanbn.snailfish.api.dto.MultiResponse;
 import me.duanbn.snailfish.api.dto.Response;
-
-import lombok.Setter;
 
 /**
  * 命令执行器内部实现
@@ -39,7 +38,7 @@ public class CommandInvocation<R extends Response> {
 
 		Class<T> _getGenricType = getRespType();
 
-		T respIns = (T) _getGenricType.newInstance();
+		T respIns = (T) _getGenricType.getDeclaredConstructor().newInstance();
 		respIns.setSuccess(true);
 		respIns.setMessage("success");
 
