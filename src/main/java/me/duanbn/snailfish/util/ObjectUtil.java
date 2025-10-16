@@ -14,7 +14,7 @@ public class ObjectUtil {
 
 	public static <T> T create(Class<T> clazz) {
 		try {
-			return clazz.newInstance();
+			return clazz.getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
 			throw new IllegalArgumentException(clazz + " can not be new with no param constructor");
 		}

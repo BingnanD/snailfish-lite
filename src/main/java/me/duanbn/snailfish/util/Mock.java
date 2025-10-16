@@ -25,7 +25,7 @@ public class Mock {
 
 		T instance = null;
 		try {
-			instance = clazz.newInstance();
+			instance = clazz.getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
 			throw new IllegalArgumentException("create mock isntance err " + clazz.getName());
 		}
@@ -48,7 +48,7 @@ public class Mock {
 				} else if (field.getType() == Short.TYPE) {
 					field.setShort(instance, Random.nextInt().shortValue());
 				} else if (field.getType() == Short.class) {
-					field.set(instance, new Short(Random.nextInt().shortValue()));
+					field.set(instance, Short.valueOf(Random.nextInt().shortValue()));
 				} else if (field.getType() == Integer.TYPE) {
 					field.setInt(instance, Random.nextInt());
 				} else if (field.getType() == Integer.class) {
@@ -60,11 +60,11 @@ public class Mock {
 				} else if (field.getType() == Float.TYPE) {
 					field.setFloat(instance, Random.nextInt().floatValue());
 				} else if (field.getType() == Float.class) {
-					field.set(instance, new Float(Random.nextInt().floatValue()));
+					field.set(instance, Float.valueOf(Random.nextInt().floatValue()));
 				} else if (field.getType() == Double.TYPE) {
 					field.setDouble(instance, Random.nextInt().doubleValue());
 				} else if (field.getType() == Double.class) {
-					field.set(instance, new Double(Random.nextInt().doubleValue()));
+					field.set(instance, Double.valueOf(Random.nextInt().doubleValue()));
 				} else if (field.getType() == byte[].class) {
 					field.set(instance, new byte[] { 0, 1, 2 });
 				} else if (field.getType() == Byte[].class) {

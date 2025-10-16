@@ -2,10 +2,9 @@ package me.duanbn.snailfish.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-
-import me.duanbn.snailfish.util.collection.Maps;
 
 import javassist.CannotCompileException;
 import javassist.ClassClassPath;
@@ -16,12 +15,13 @@ import javassist.CtMethod;
 import javassist.CtNewMethod;
 import javassist.Modifier;
 import javassist.NotFoundException;
+import me.duanbn.snailfish.util.collection.Maps;
 
 @SuppressWarnings({ "rawtypes" })
 public class JavassistProxy {
 
 	/** 动态代理类的类名后缀 */
-	private final static String PROXY_CLASS_NAME_SUFFIX = "$JavassistProxy_";
+	private final static String PROXY_CLASS_NAME_SUFFIX = "";
 
 	/** 动态代理类的类名索引，防止类名重复 */
 	private static int proxyClassIndex = 1;
@@ -46,12 +46,16 @@ public class JavassistProxy {
 	 * @throws ClassNotFoundException
 	 * @throws SecurityException
 	 * @throws NoSuchFieldException
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalArgumentException
 	 * @see com.cuishen.myAop.InterceptorHandler
 	 */
 	@SuppressWarnings("unlikely-arg-type")
 	public static Object newProxyInstance(Class<?> interfaceClass, InvocationHandler interceptorHandler)
 			throws InstantiationException, IllegalAccessException, NotFoundException, CannotCompileException,
-			ClassNotFoundException, NoSuchFieldException, SecurityException {
+			ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException {
 
 		Object obj = cache.get(buildCacheKey(interfaceClass, interceptorHandler));
 		if (obj != null) {
@@ -87,7 +91,7 @@ public class JavassistProxy {
 					cc.addMethod(cm);
 				}
 
-				obj = (Object) cc.toClass().newInstance();
+				obj = (Object) cc.toClass().getDeclaredConstructor().newInstance();
 				Field f = obj.getClass().getDeclaredField("interceptor");
 				f.setAccessible(true);
 				f.set(obj, interceptorHandler);

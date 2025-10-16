@@ -92,9 +92,4 @@ public class TestA extends DomainE {
     @Field(jsonField = true)
     private TestB jsonField_NULL;
 
-    @Override
-    public boolean isAggregationRoot() {
-        return true;
-    }
-
 }

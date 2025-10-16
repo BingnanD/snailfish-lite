@@ -87,9 +87,4 @@ public class TestB extends DomainE {
     @Field
     private Set<String> set_NULL;
 
-    @Override
-    public boolean isAggregationRoot() {
-        return false;
-    }
-
 }

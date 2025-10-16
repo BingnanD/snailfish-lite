@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 public class CustomDataSourceConfig {
@@ -21,7 +21,7 @@ public class CustomDataSourceConfig {
             "password" })
     @Bean(name = "dsTwo")
     public DataSource dsTwo() {
-        return DruidDataSourceBuilder.create().build();
+        return new HikariDataSource();
     }
 
     @ConfigurationProperties(prefix = "spring.datasource.three")
@@ -29,7 +29,7 @@ public class CustomDataSourceConfig {
             "password" })
     @Bean(name = "dsThree")
     public DataSource dsThree() {
-        return DruidDataSourceBuilder.create().build();
+        return new HikariDataSource();
     }
 
     @ConfigurationProperties(prefix = "spring.datasource.four")
@@ -37,7 +37,7 @@ public class CustomDataSourceConfig {
             "password" })
     @Bean(name = "dsFour")
     public DataSource dsFour() {
-        return DruidDataSourceBuilder.create().build();
+        return new HikariDataSource();
     }
 
 }

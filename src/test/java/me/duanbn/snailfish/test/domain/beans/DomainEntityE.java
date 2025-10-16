@@ -28,9 +28,4 @@ public class DomainEntityE extends DomainE {
 
 	private DomainValueObjectV valueObject;
 
-	@Override
-	public boolean isAggregationRoot() {
-		return true;
-	}
-
 }
