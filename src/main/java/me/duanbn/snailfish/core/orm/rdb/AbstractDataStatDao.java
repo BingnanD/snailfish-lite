@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import lombok.extern.slf4j.Slf4j;
-import me.duanbn.snailfish.core.Bootstrap;
+import me.duanbn.snailfish.core.Bootstrap.BootstrapAttribute;
 import me.duanbn.snailfish.core.DataNode;
 import me.duanbn.snailfish.core.orm.PersistenceException;
 
@@ -67,8 +67,8 @@ public class AbstractDataStatDao implements DataStatDao, ApplicationContextAware
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.appCtx = applicationContext;
-        Bootstrap bootstrap = this.appCtx.getBean(Bootstrap.class);
-        this.enableLog = bootstrap.isEnableSQLLog();
+        BootstrapAttribute bootstrapAttr = this.appCtx.getBean(BootstrapAttribute.class);
+        this.enableLog = bootstrapAttr.isEnableSQLLog();
     }
 
 }

@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import lombok.extern.slf4j.Slf4j;
-import me.duanbn.snailfish.core.Bootstrap;
+import me.duanbn.snailfish.core.Bootstrap.BootstrapAttribute;
 import me.duanbn.snailfish.core.RegisterI;
 import me.duanbn.snailfish.core.domain.DomainBusException;
 import me.duanbn.snailfish.core.domain.annotations.DomainFactory;
@@ -65,6 +65,8 @@ public class DomainPatternRegister implements RegisterI, ApplicationContextAware
 		DomainPatternI domainPatternIns = (DomainPatternI) this.appCtx.getBean(clazz);
 		this.mapWithInstance.put(clazz, domainPatternIns);
 
+		BootstrapAttribute bootstrapAttr = this.appCtx.getBean(BootstrapAttribute.class);
+
 		// handle domain factory
 		if (DomainFactoryI.class.isAssignableFrom(clazz)) {
 			DomainFactory annotation = clazz.getAnnotation(DomainFactory.class);
@@ -73,8 +75,7 @@ public class DomainPatternRegister implements RegisterI, ApplicationContextAware
 						clazz.getSimpleName() + " implements DomainFactoryI should be annotationed by @DomainFactory");
 			}
 
-			Bootstrap bootstrap = this.appCtx.getBean(Bootstrap.class);
-			if (bootstrap.isEnableLog())
+			if (bootstrapAttr.isEnableLog())
 				log.info("register domain factory [{}] done", clazz.getSimpleName());
 		}
 
@@ -103,8 +104,7 @@ public class DomainPatternRegister implements RegisterI, ApplicationContextAware
 				}
 				this.mapWithInter.put(class1, map3);
 
-				Bootstrap bootstrap = this.appCtx.getBean(Bootstrap.class);
-				if (bootstrap.isEnableLog())
+				if (bootstrapAttr.isEnableLog())
 					log.info("register domain repository [{}] {} done", class1.getSimpleName(), list);
 			}
 		}
@@ -133,8 +133,7 @@ public class DomainPatternRegister implements RegisterI, ApplicationContextAware
 				}
 				this.mapWithInter.put(class1, map3);
 
-				Bootstrap bootstrap = this.appCtx.getBean(Bootstrap.class);
-				if (bootstrap.isEnableLog())
+				if (bootstrapAttr.isEnableLog())
 					log.info("register domain service [{}] {} done", class1.getSimpleName(), list);
 			}
 		}

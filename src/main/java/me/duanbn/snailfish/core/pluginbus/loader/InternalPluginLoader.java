@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.CollectionUtils;
 
 import lombok.extern.slf4j.Slf4j;
-import me.duanbn.snailfish.core.Bootstrap;
+import me.duanbn.snailfish.core.Bootstrap.BootstrapAttribute;
 import me.duanbn.snailfish.core.pluginbus.ExtensionPointI;
 import me.duanbn.snailfish.core.pluginbus.PluginLoaderException;
 import me.duanbn.snailfish.core.pluginbus.PluginLoaderI;
@@ -49,8 +49,8 @@ public class InternalPluginLoader implements PluginLoaderI, ApplicationContextAw
 			pluginIds.add(pluginId);
 		}
 
-		Bootstrap bootstrap = this.appCtx.getBean(Bootstrap.class);
-		if (bootstrap.isEnableLog() && !pluginIds.isEmpty())
+		BootstrapAttribute bootstrapAttr = this.appCtx.getBean(BootstrapAttribute.class);
+		if (bootstrapAttr.isEnableLog() && !pluginIds.isEmpty())
 			log.info("register plugin [{}] {} done", extensionPoint.getSimpleName(), pluginIds);
 	}
 

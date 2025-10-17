@@ -10,6 +10,7 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
 import me.duanbn.snailfish.core.Bootstrap;
+import me.duanbn.snailfish.core.Bootstrap.BootstrapAttribute;
 import me.duanbn.snailfish.core.RegisterFactory;
 import me.duanbn.snailfish.core.domain.DomainBus.DomainBusInjector;
 import me.duanbn.snailfish.core.eventbus.EventBus.EventBusInjector;
@@ -29,24 +30,28 @@ public class FrameworkImportRegister implements ImportBeanDefinitionRegistrar {
     }
 
     private void registerBootstrap(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(Bootstrap.class);
-        rootBeanDefinition.setDependsOn(DomainBusInjector.class.getName(), EventBusInjector.class.getName(),
-                PluginBusInjector.class.getName(), FactoryInjector.class.getName());
 
-        MutablePropertyValues propertyValues = rootBeanDefinition.getPropertyValues();
         Map<String, Object> annotationAttributesMap = importingClassMetadata
                 .getAnnotationAttributes(EnableSnailfishFramework.class.getName());
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(annotationAttributesMap);
-        String[] scanPackages = annotationAttributes.getStringArray("scanPackages");
-        propertyValues.add("packages", Lists.newArrayList(scanPackages));
-
         boolean enableLog = annotationAttributes.getBoolean("enableLog");
-        propertyValues.add("enableLog", enableLog);
         boolean enableDDL = annotationAttributes.getBoolean("enableDDL");
-        propertyValues.add("enableDDL", enableDDL);
         boolean enableSQLLog = annotationAttributes.getBoolean("enableSQLLog");
-        propertyValues.add("enableSQLLog", enableSQLLog);
+        String[] scanPackages = annotationAttributes.getStringArray("scanPackages");
 
+        RootBeanDefinition bootstrapAttr = new RootBeanDefinition(BootstrapAttribute.class);
+        MutablePropertyValues bootstrapAttrProperties = bootstrapAttr.getPropertyValues();
+        bootstrapAttrProperties.add("enableLog", enableLog);
+        bootstrapAttrProperties.add("enableDDL", enableDDL);
+        bootstrapAttrProperties.add("enableSQLLog", enableSQLLog);
+        registry.registerBeanDefinition(BootstrapAttribute.class.getName(), bootstrapAttr);
+
+        RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(Bootstrap.class);
+        rootBeanDefinition.setDependsOn(BootstrapAttribute.class.getName(), DomainBusInjector.class.getName(),
+                EventBusInjector.class.getName(),
+                PluginBusInjector.class.getName(), FactoryInjector.class.getName());
+        MutablePropertyValues propertyValues = rootBeanDefinition.getPropertyValues();
+        propertyValues.add("packages", Lists.newArrayList(scanPackages));
         registry.registerBeanDefinition(Bootstrap.class.getName(), rootBeanDefinition);
     }
 

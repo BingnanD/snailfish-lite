@@ -2,10 +2,13 @@ package me.duanbn.snailfish.core;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +26,9 @@ public class Bootstrap implements InitializingBean {
     @Setter
     @Getter
     private List<String> packages;
-    @Setter
-    @Getter
-    private boolean enableLog;
-    @Setter
-    @Getter
-    private boolean enableDDL;
-    @Setter
-    @Getter
-    private boolean enableSQLLog;
+
+    @Resource
+    private BootstrapAttribute attribute;
 
     @Autowired
     private RegisterFactory registerFactory;
@@ -39,7 +36,7 @@ public class Bootstrap implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         // logger
-        if (this.isEnableLog())
+        if (attribute.isEnableLog())
             log.info(String.format("snailfish bootstrap is starting..."));
 
         long start = System.currentTimeMillis();
@@ -49,14 +46,14 @@ public class Bootstrap implements InitializingBean {
         registerBeans(classes);
 
         // show DDL
-        if (this.isEnableDDL() && this.isEnableLog()) {
+        if (attribute.isEnableDDL() && attribute.isEnableLog()) {
             DomainObjectResgister domainRegister = this.registerFactory.getDomainRegister();
             String sqlStatement = Persistence.getSqlStatement(domainRegister.getEntityClasses(),
                     domainRegister.getValueObjectClasses());
             System.out.println(sqlStatement);
         }
 
-        if (this.isEnableLog())
+        if (attribute.isEnableLog())
             log.info(String.format("snailfish bootstrap start has finished in %sms",
                     (System.currentTimeMillis() - start)));
     }
@@ -83,6 +80,13 @@ public class Bootstrap implements InitializingBean {
                 throw new RegisterException("register class=" + clazz + " error", e);
             }
         }
+    }
+
+    @Data
+    public static class BootstrapAttribute {
+        private boolean enableLog;
+        private boolean enableDDL;
+        private boolean enableSQLLog;
     }
 
 }

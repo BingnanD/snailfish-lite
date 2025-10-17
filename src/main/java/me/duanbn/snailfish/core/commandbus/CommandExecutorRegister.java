@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContextAware;
 import lombok.extern.slf4j.Slf4j;
 import me.duanbn.snailfish.api.command.Command;
 import me.duanbn.snailfish.api.dto.Response;
-import me.duanbn.snailfish.core.Bootstrap;
+import me.duanbn.snailfish.core.Bootstrap.BootstrapAttribute;
 import me.duanbn.snailfish.core.RegisterI;
 import me.duanbn.snailfish.core.commandbus.annotations.CommandExecutor;
 import me.duanbn.snailfish.util.collection.Lists;
@@ -78,8 +78,8 @@ public class CommandExecutorRegister implements RegisterI, ApplicationContextAwa
 
 			commandExecutorMap.put(commandClazz, commandInvocation);
 
-			Bootstrap bootstrap = this.appCtx.getBean(Bootstrap.class);
-			if (bootstrap.isEnableLog())
+			BootstrapAttribute bootstrapAttr = this.appCtx.getBean(BootstrapAttribute.class);
+			if (bootstrapAttr.isEnableLog())
 				log.info("register command [{}] [{}] done", commandClazz.getSimpleName(),
 						commandExecutor.getClass().getSimpleName());
 		}
