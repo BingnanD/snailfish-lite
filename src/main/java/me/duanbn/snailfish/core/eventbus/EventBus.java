@@ -91,4 +91,14 @@ public class EventBus {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
+	public static void subscribe(EventHandlerI handler) {
+		eventRegister.addHandler(handler);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static void unsubscribe(EventHandlerI handlerI) {
+		eventRegister.removeHandler(handlerI);
+	}
+
 }

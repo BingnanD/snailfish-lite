@@ -26,4 +26,24 @@ public class EventBusTest {
 		Thread.sleep(1000L);
 	}
 
+	@Test
+	public void testSoWhat() {
+		SoWhatEvent event = new SoWhatEvent();
+
+		SoWhatEventHandler soWhatEventHandler = new SoWhatEventHandler();
+		SoWhat1EventHandler soWhat1EventHandler = new SoWhat1EventHandler();
+
+		EventBus.subscribe(soWhatEventHandler);
+		EventBus.dispatch(event);
+
+		EventBus.subscribe(soWhat1EventHandler);
+		EventBus.dispatch(event);
+
+		EventBus.unsubscribe(soWhat1EventHandler);
+		EventBus.dispatch(event);
+
+		EventBus.unsubscribe(soWhatEventHandler);
+
+	}
+
 }

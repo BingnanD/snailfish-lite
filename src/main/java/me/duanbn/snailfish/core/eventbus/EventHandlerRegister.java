@@ -8,6 +8,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import me.duanbn.snailfish.core.Bootstrap.BootstrapAttribute;
 import me.duanbn.snailfish.core.RegisterI;
@@ -28,6 +30,38 @@ public class EventHandlerRegister implements RegisterI, ApplicationContextAware 
 
 	/** handler hub */
 	private Map<Class<EventI>, List<EventHandlerWrapper>> eventHandlerHub = Maps.newConcurrentMap();
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void addHandler(EventHandlerI handler) {
+		Class<EventI> genricType = getRegisterObjectGenricType(handler.getClass(), 0);
+		EventHandlerWrapper eventHandlerWrapper = new EventHandlerWrapper();
+		eventHandlerWrapper.priority = 0;
+		eventHandlerWrapper.eventHandler = handler;
+
+		List<EventHandlerWrapper> handlers = eventHandlerHub.get(genricType);
+		if (handlers == null) {
+			handlers = Lists.newArrayList();
+			eventHandlerHub.put(genricType, handlers);
+		}
+		handlers.add(eventHandlerWrapper);
+
+		BootstrapAttribute bootstrapAttr = this.appCtx.getBean(BootstrapAttribute.class);
+		if (bootstrapAttr.isEnableLog())
+			log.info("register event [{}] [{}] done", genricType.getSimpleName(), handler.getClass().getSimpleName());
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void removeHandler(EventHandlerI handler) {
+		Class<EventI> genricType = getRegisterObjectGenricType(handler.getClass(), 0);
+		EventHandlerWrapper eventHandlerWrapper = new EventHandlerWrapper();
+		eventHandlerWrapper.priority = 0;
+		eventHandlerWrapper.eventHandler = handler;
+		List<EventHandlerWrapper> handlers = eventHandlerHub.get(genricType);
+		handlers.remove(eventHandlerWrapper);
+		BootstrapAttribute bootstrapAttr = this.appCtx.getBean(BootstrapAttribute.class);
+		if (bootstrapAttr.isEnableLog())
+			log.info("unregister event [{}] [{}] done", genricType.getSimpleName(), handler.getClass().getSimpleName());
+	}
 
 	/**
 	 * 获取事件处理器
@@ -80,6 +114,8 @@ public class EventHandlerRegister implements RegisterI, ApplicationContextAware 
 		this.appCtx = applicationContext;
 	}
 
+	@EqualsAndHashCode
+	@ToString
 	public static class EventHandlerWrapper implements Comparable<EventHandlerWrapper> {
 		int priority;
 		EventHandlerI<EventI> eventHandler;
