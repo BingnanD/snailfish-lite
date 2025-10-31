@@ -375,7 +375,12 @@ public abstract class AbstractDataObjectDao<E> implements ApplicationContextAwar
                     List<Object> params = whereSql.getParams();
                     PreparedStatement ps = con.prepareStatement(sql.toString());
                     for (int i = 1; i <= params.size(); i++) {
-                        ps.setObject(i, params.get(i - 1));
+                        Object val = params.get(i - 1);
+                        if (val.getClass().isEnum()) {
+                            ps.setString(i, val.toString());
+                        } else {
+                            ps.setObject(i, val);
+                        }
                     }
                     return ps;
                 }
@@ -498,7 +503,12 @@ public abstract class AbstractDataObjectDao<E> implements ApplicationContextAwar
                     List<Object> params = whereSql.getParams();
                     PreparedStatement ps = con.prepareStatement(sql.toString());
                     for (int i = 1; i <= ps.getParameterMetaData().getParameterCount(); i++) {
-                        ps.setObject(i, params.get(i - 1));
+                        Object val = params.get(i - 1);
+                        if (val.getClass().isEnum()) {
+                            ps.setString(i, val.toString());
+                        } else {
+                            ps.setObject(i, val);
+                        }
                     }
                     return ps;
                 }
@@ -580,7 +590,12 @@ public abstract class AbstractDataObjectDao<E> implements ApplicationContextAwar
                     List<Object> params = whereSql.getParams();
                     PreparedStatement ps = con.prepareStatement(sql.toString());
                     for (int i = 1; i <= params.size(); i++) {
-                        ps.setObject(i, params.get(i - 1));
+                        Object val = params.get(i - 1);
+                        if (val.getClass().isEnum()) {
+                            ps.setString(i, val.toString());
+                        } else {
+                            ps.setObject(i, val);
+                        }
                     }
                     return ps;
                 }

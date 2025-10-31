@@ -13,9 +13,9 @@ public interface DomainPatternCallbackConsumer<T extends DomainPatternI> extends
 	/**
 	 * accept
 	 *
-	 * @param extension
+	 * @param plugin
 	 */
 	@Override
-	void accept(T extension);
+	void accept(T plugin);
 
 }

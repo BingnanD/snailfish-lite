@@ -8,14 +8,14 @@ import java.util.function.Consumer;
  * @author zhilin
  * @author shanwei
  */
-public interface ExtensionCallbackConsumer<T extends ExtensionPointI> extends Consumer<T> {
+public interface ExtensionCallbackConsumer<T extends Pluginable> extends Consumer<T> {
 
 	/**
 	 * accept
 	 *
-	 * @param extension
+	 * @param plugin
 	 */
 	@Override
-	void accept(T extension);
+	void accept(T plugin);
 
 }

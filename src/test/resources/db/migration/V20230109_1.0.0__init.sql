@@ -18,7 +18,7 @@ CREATE TABLE `t_entity`
 `gmt_modified` datetime NOT NULL COMMENT '修改时间',
 `operator_uuid` varchar(255) NULL COMMENT '操作人',
 `is_delete` tinyint NULL COMMENT '是否逻辑删除, 0表示未删除，1表示已删除',
-`extension` varchar(255) NULL COMMENT '扩展信息',
+`plugin` varchar(255) NULL COMMENT '扩展信息',
 `tanent_uuid` varchar(255) NULL COMMENT '租户UUID',
  PRIMARY KEY (`id`),
  KEY `idx_t_entity_uuid` (`uuid`),

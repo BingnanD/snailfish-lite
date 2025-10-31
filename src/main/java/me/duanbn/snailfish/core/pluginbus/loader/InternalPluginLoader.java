@@ -10,10 +10,10 @@ import org.springframework.util.CollectionUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import me.duanbn.snailfish.core.Bootstrap.BootstrapAttribute;
-import me.duanbn.snailfish.core.pluginbus.ExtensionPointI;
 import me.duanbn.snailfish.core.pluginbus.PluginLoaderException;
 import me.duanbn.snailfish.core.pluginbus.PluginLoaderI;
 import me.duanbn.snailfish.core.pluginbus.PluginRegister;
+import me.duanbn.snailfish.core.pluginbus.Pluginable;
 import me.duanbn.snailfish.core.pluginbus.annotations.Plugin;
 import me.duanbn.snailfish.util.collection.Lists;
 
@@ -23,35 +23,38 @@ public class InternalPluginLoader implements PluginLoaderI, ApplicationContextAw
 	private ApplicationContext appCtx;
 
 	@Override
-	public void loadPlugin(PluginRegister pluginRegister, Class<ExtensionPointI> extensionPoint)
+	public void loadPlugin(PluginRegister pluginRegister, Class<Pluginable> pluginable)
 			throws PluginLoaderException {
 		// 加载扩展点.
-		Map<String, ?> extensionInstanceMap = this.appCtx.getBeansOfType(extensionPoint);
-		if (CollectionUtils.isEmpty(extensionInstanceMap)) {
+		Map<String, ?> pluginInstanceMap = this.appCtx.getBeansOfType(pluginable);
+		if (CollectionUtils.isEmpty(pluginInstanceMap)) {
 			return;
 		}
 
-		List<String> pluginIds = Lists.newArrayList();
-
-		for (Object extensionInstance : extensionInstanceMap.values()) {
-			Plugin pluginAnno = extensionInstance.getClass().getAnnotation(Plugin.class);
+		for (Object pluginInstance : pluginInstanceMap.values()) {
+			Plugin pluginAnno = pluginInstance.getClass().getAnnotation(Plugin.class);
 			if (pluginAnno == null) {
 				continue;
 			}
 
-			String pluginId = pluginAnno.value();
+			String pluginName = pluginAnno.value();
 
-			if (pluginRegister.hasPlugin(pluginId)) {
+			if (pluginRegister.hasPlugin(pluginName)) {
 				continue;
 			}
 
-			pluginRegister.putPlugin(pluginId, (ExtensionPointI) extensionInstance);
-			pluginIds.add(pluginId);
+			pluginRegister.putPlugin(pluginName, (Pluginable) pluginInstance);
+
 		}
 
-		BootstrapAttribute bootstrapAttr = this.appCtx.getBean(BootstrapAttribute.class);
-		if (bootstrapAttr.isEnableLog() && !pluginIds.isEmpty())
-			log.info("register plugin [{}] {} done", extensionPoint.getSimpleName(), pluginIds);
+		if (!pluginRegister.hasPlugin(pluginable)) {
+			List<String> pluginNames = Lists.newArrayList(pluginInstanceMap.keySet());
+			pluginRegister.putPlugin(pluginable, pluginNames);
+
+			BootstrapAttribute bootstrapAttr = this.appCtx.getBean(BootstrapAttribute.class);
+			if (bootstrapAttr.isEnableLog() && !pluginNames.isEmpty())
+				log.info("register plugin [{}] {} done", pluginable.getSimpleName(), pluginNames);
+		}
 	}
 
 	@Override

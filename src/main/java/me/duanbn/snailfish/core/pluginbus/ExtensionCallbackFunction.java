@@ -7,15 +7,15 @@ import java.util.function.Function;
  *
  * @author zhilin
  */
-public interface ExtensionCallbackFunction<T extends ExtensionPointI, R> extends Function<T, R> {
+public interface ExtensionCallbackFunction<T extends Pluginable, R> extends Function<T, R> {
 
 	/**
 	 * apply
 	 *
-	 * @param extension
+	 * @param plugin
 	 * @return
 	 */
 	@Override
-	R apply(T extension);
+	R apply(T plugin);
 
 }

@@ -12,10 +12,10 @@ public interface DomainPatternCallbackFunction<T extends DomainPatternI, R> exte
 	/**
 	 * apply
 	 *
-	 * @param extension
+	 * @param plugin
 	 * @return
 	 */
 	@Override
-	R apply(T extension);
+	R apply(T plugin);
 
 }
