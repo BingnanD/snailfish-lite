@@ -1,4 +1,4 @@
-package me.duanbn.snailfish.core.pluginbus.loader;
+package me.duanbn.snailfish.core.pluginbus;
 
 import java.util.List;
 import java.util.Map;
@@ -10,11 +10,6 @@ import org.springframework.util.CollectionUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import me.duanbn.snailfish.core.Bootstrap.BootstrapAttribute;
-import me.duanbn.snailfish.core.pluginbus.PluginLoaderException;
-import me.duanbn.snailfish.core.pluginbus.PluginLoaderI;
-import me.duanbn.snailfish.core.pluginbus.PluginRegister;
-import me.duanbn.snailfish.core.pluginbus.Pluginable;
-import me.duanbn.snailfish.core.pluginbus.annotations.Plugin;
 import me.duanbn.snailfish.util.collection.Lists;
 
 @Slf4j
@@ -23,7 +18,7 @@ public class InternalPluginLoader implements PluginLoaderI, ApplicationContextAw
 	private ApplicationContext appCtx;
 
 	@Override
-	public void loadPlugin(PluginRegister pluginRegister, Class<Pluginable> pluginable)
+	public void loadPlugin(PluginRegister pluginRegister, Class<Plugin> pluginable)
 			throws PluginLoaderException {
 		// 加载扩展点.
 		Map<String, ?> pluginInstanceMap = this.appCtx.getBeansOfType(pluginable);
@@ -32,7 +27,7 @@ public class InternalPluginLoader implements PluginLoaderI, ApplicationContextAw
 		}
 
 		for (Object pluginInstance : pluginInstanceMap.values()) {
-			Plugin pluginAnno = pluginInstance.getClass().getAnnotation(Plugin.class);
+			PluginName pluginAnno = pluginInstance.getClass().getAnnotation(PluginName.class);
 			if (pluginAnno == null) {
 				continue;
 			}
@@ -43,7 +38,7 @@ public class InternalPluginLoader implements PluginLoaderI, ApplicationContextAw
 				continue;
 			}
 
-			pluginRegister.putPlugin(pluginName, (Pluginable) pluginInstance);
+			pluginRegister.putPlugin(pluginName, (Plugin) pluginInstance);
 
 		}
 

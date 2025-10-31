@@ -1,8 +1,8 @@
 package me.duanbn.snailfish.test.pluginbus;
 
-import me.duanbn.snailfish.core.pluginbus.Pluginable;
+import me.duanbn.snailfish.core.pluginbus.Plugin;
 
-public interface StaffPlugin extends Pluginable {
+public interface StaffPlugin extends Plugin {
 
     String staff();
 

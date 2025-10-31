@@ -1,4 +1,4 @@
-package me.duanbn.snailfish.core.pluginbus.annotations;
+package me.duanbn.snailfish.core.pluginbus;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })
 @Component
-public @interface Plugin {
+public @interface PluginName {
 
 	/** 扩展实现的唯一标识 */
 	String value();

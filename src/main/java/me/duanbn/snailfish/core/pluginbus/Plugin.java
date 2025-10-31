@@ -6,6 +6,6 @@ package me.duanbn.snailfish.core.pluginbus;
  * @author zhilin
  * @author bingnan.dbn
  */
-public interface Pluginable {
+public interface Plugin {
 
 }

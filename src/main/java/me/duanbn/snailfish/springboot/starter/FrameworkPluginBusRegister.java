@@ -5,9 +5,9 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
+import me.duanbn.snailfish.core.pluginbus.InternalPluginLoader;
 import me.duanbn.snailfish.core.pluginbus.PluginBus.PluginBusInjector;
 import me.duanbn.snailfish.core.pluginbus.PluginRegister;
-import me.duanbn.snailfish.core.pluginbus.loader.InternalPluginLoader;
 
 public class FrameworkPluginBusRegister implements ImportBeanDefinitionRegistrar {
 

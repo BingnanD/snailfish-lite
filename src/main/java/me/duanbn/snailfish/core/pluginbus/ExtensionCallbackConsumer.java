@@ -8,7 +8,7 @@ import java.util.function.Consumer;
  * @author zhilin
  * @author shanwei
  */
-public interface ExtensionCallbackConsumer<T extends Pluginable> extends Consumer<T> {
+public interface ExtensionCallbackConsumer<T extends Plugin> extends Consumer<T> {
 
 	/**
 	 * accept

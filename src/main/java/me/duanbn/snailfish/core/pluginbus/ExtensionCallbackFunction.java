@@ -7,7 +7,7 @@ import java.util.function.Function;
  *
  * @author zhilin
  */
-public interface ExtensionCallbackFunction<T extends Pluginable, R> extends Function<T, R> {
+public interface ExtensionCallbackFunction<T extends Plugin, R> extends Function<T, R> {
 
 	/**
 	 * apply
