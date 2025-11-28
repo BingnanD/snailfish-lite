@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import lombok.extern.slf4j.Slf4j;
 import me.duanbn.snailfish.core.orm.PersistenceException;
-import me.duanbn.snailfish.core.orm.rdb.dialect.DaMengDialect;
 import me.duanbn.snailfish.core.orm.rdb.dialect.Dialect;
 import me.duanbn.snailfish.core.orm.rdb.dialect.GenericDialect;
 import me.duanbn.snailfish.core.orm.rdb.dialect.MysqlDialect;
@@ -86,7 +85,7 @@ public class DataSourceManager implements ApplicationContextAware {
             } else if (dbProductName.equals("H2")) {
                 dialect = new GenericDialect();
             } else if (dbProductName.equals("DM DBMS")) {
-                dialect = new DaMengDialect();
+                // dialect = new DaMengDialect();
             } else {
                 dialect = new GenericDialect();
             }
