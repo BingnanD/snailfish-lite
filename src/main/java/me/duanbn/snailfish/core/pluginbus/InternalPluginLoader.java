@@ -18,7 +18,7 @@ public class InternalPluginLoader implements PluginLoaderI, ApplicationContextAw
 	private ApplicationContext appCtx;
 
 	@Override
-	public void loadPlugin(PluginRegister pluginRegister, Class<Plugin> pluginable)
+	public void loadPlugin(PluginRegister pluginRegister, Class<Pluginable> pluginable)
 			throws PluginLoaderException {
 		// 加载扩展点.
 		Map<String, ?> pluginInstanceMap = this.appCtx.getBeansOfType(pluginable);
@@ -27,7 +27,7 @@ public class InternalPluginLoader implements PluginLoaderI, ApplicationContextAw
 		}
 
 		for (Object pluginInstance : pluginInstanceMap.values()) {
-			PluginName pluginAnno = pluginInstance.getClass().getAnnotation(PluginName.class);
+			Plugin pluginAnno = pluginInstance.getClass().getAnnotation(Plugin.class);
 			if (pluginAnno == null) {
 				continue;
 			}
@@ -38,7 +38,7 @@ public class InternalPluginLoader implements PluginLoaderI, ApplicationContextAw
 				continue;
 			}
 
-			pluginRegister.putPlugin(pluginName, (Plugin) pluginInstance);
+			pluginRegister.putPlugin(pluginName, (Pluginable) pluginInstance);
 
 		}
 

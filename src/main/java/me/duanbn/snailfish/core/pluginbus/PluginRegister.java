@@ -19,14 +19,14 @@ import me.duanbn.snailfish.util.lang.StringUtil;
 public class PluginRegister implements RegisterI {
 
 	/** 插件 */
-	private Map<String, Plugin> pluginMap = Maps.newConcurrentMap();
-	private Map<Class<? extends Plugin>, List<String>> pluginNamesMap = Maps.newConcurrentMap();
+	private Map<String, Pluginable> pluginMap = Maps.newConcurrentMap();
+	private Map<Class<? extends Pluginable>, List<String>> pluginNamesMap = Maps.newConcurrentMap();
 
 	// 插件加载器.
 	@Resource(name = "internalPluginLoader")
 	private PluginLoaderI internalPluginLoader;
 
-	public boolean hasPlugin(Class<? extends Plugin> pluginableClazz) {
+	public boolean hasPlugin(Class<? extends Pluginable> pluginableClazz) {
 		return this.pluginNamesMap.containsKey(pluginableClazz);
 	}
 
@@ -34,19 +34,19 @@ public class PluginRegister implements RegisterI {
 		return this.pluginMap.containsKey(value);
 	}
 
-	public void putPlugin(String pluginName, Plugin plugin) {
+	public void putPlugin(String pluginName, Pluginable plugin) {
 		this.pluginMap.put(pluginName, plugin);
 	}
 
-	public void putPlugin(Class<? extends Plugin> pluginableClazz, List<String> pluginName) {
+	public void putPlugin(Class<? extends Pluginable> pluginableClazz, List<String> pluginName) {
 		this.pluginNamesMap.put(pluginableClazz, pluginName);
 	}
 
-	public List<String> getPluginNames(Class<? extends Plugin> pluginableClazz) {
+	public List<String> getPluginNames(Class<? extends Pluginable> pluginableClazz) {
 		return this.pluginNamesMap.get(pluginableClazz);
 	}
 
-	public Plugin getPlugin(String pluginName) {
+	public Pluginable getPlugin(String pluginName) {
 		if (StringUtil.isBlank(pluginName)) {
 			return null;
 		}
@@ -55,7 +55,7 @@ public class PluginRegister implements RegisterI {
 
 	@Override
 	public void doRegistration(Class<?> pluginClazz) {
-		if (!Plugin.class.isAssignableFrom(pluginClazz)) {
+		if (!Pluginable.class.isAssignableFrom(pluginClazz)) {
 			throw new IllegalStateException(String.format(
 					"There should be at leads one interfaces implemented by given clazz: %s",
 					pluginClazz.getName()));
@@ -82,7 +82,7 @@ public class PluginRegister implements RegisterI {
 					"There should be at leads one interfaces implemented by given clazz: %s", extPtClazz.getName()));
 		}
 		for (Class it : interfaces) {
-			if (Plugin.class.isAssignableFrom(it)) {
+			if (Pluginable.class.isAssignableFrom(it)) {
 				extPtList.add(it);
 			}
 		}

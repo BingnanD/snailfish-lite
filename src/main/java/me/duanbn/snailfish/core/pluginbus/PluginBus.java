@@ -30,17 +30,17 @@ public class PluginBus {
 		}
 	}
 
-	public static List<String> getPluginNames(Class<? extends Plugin> pluginableClazz) {
+	public static List<String> getPluginNames(Class<? extends Pluginable> pluginableClazz) {
 		return pluginRegister.getPluginNames(pluginableClazz);
 	}
 
-	public static <T extends Plugin, R> R dispatch(Class<T> clazz,
+	public static <T extends Pluginable, R> R dispatch(Class<T> clazz,
 			PluginSelector selector,
 			ExtensionCallbackFunction<T, R> function) {
 		return dispatch(clazz, selector.select(), function);
 	}
 
-	public static <T extends Plugin, R> R dispatch(Class<T> clazz, String pluginName,
+	public static <T extends Pluginable, R> R dispatch(Class<T> clazz, String pluginName,
 			ExtensionCallbackFunction<T, R> function) {
 		T findComponent = (T) pluginRegister.getPlugin(pluginName);
 
@@ -51,12 +51,12 @@ public class PluginBus {
 		return function.apply(findComponent);
 	}
 
-	public static <T extends Plugin> void dispatchVoid(Class<T> clazz, PluginSelector selector,
+	public static <T extends Pluginable> void dispatchVoid(Class<T> clazz, PluginSelector selector,
 			ExtensionCallbackConsumer<T> consumer) {
 		dispatchVoid(clazz, selector.select(), consumer);
 	}
 
-	public static <T extends Plugin> void dispatchVoid(Class<T> clazz, String pluginName,
+	public static <T extends Pluginable> void dispatchVoid(Class<T> clazz, String pluginName,
 			ExtensionCallbackConsumer<T> consumer) {
 		T findComponent = (T) pluginRegister.getPlugin(pluginName);
 

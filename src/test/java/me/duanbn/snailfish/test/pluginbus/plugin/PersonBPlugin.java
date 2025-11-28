@@ -1,12 +1,12 @@
 package me.duanbn.snailfish.test.pluginbus.plugin;
 
 import lombok.extern.slf4j.Slf4j;
-import me.duanbn.snailfish.core.pluginbus.PluginName;
+import me.duanbn.snailfish.core.pluginbus.Plugin;
 import me.duanbn.snailfish.test.pluginbus.PersonPlugin;
 import me.duanbn.snailfish.test.pluginbus.StaffPlugin;
 
 @Slf4j
-@PluginName("b")
+@Plugin("b")
 public class PersonBPlugin implements PersonPlugin, StaffPlugin {
 
 	@Override

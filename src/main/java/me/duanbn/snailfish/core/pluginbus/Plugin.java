@@ -1,11 +1,25 @@
 package me.duanbn.snailfish.core.pluginbus;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.springframework.stereotype.Component;
+
 /**
- * 插件扩展点
- * 
- * @author zhilin
+ * Plugin
+ *
  * @author bingnan.dbn
  */
-public interface Plugin {
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE })
+@Component
+public @interface Plugin {
+
+	/** 扩展实现的唯一标识 */
+	String value();
 
 }

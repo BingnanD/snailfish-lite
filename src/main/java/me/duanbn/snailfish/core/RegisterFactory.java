@@ -18,7 +18,7 @@ import me.duanbn.snailfish.core.domain.annotations.DomainService;
 import me.duanbn.snailfish.core.domain.pattern.DomainPatternRegister;
 import me.duanbn.snailfish.core.eventbus.EventHandlerRegister;
 import me.duanbn.snailfish.core.eventbus.annotations.EventHandler;
-import me.duanbn.snailfish.core.pluginbus.PluginName;
+import me.duanbn.snailfish.core.pluginbus.Plugin;
 import me.duanbn.snailfish.core.pluginbus.PluginRegister;
 import me.duanbn.snailfish.util.collection.Lists;
 
@@ -78,7 +78,7 @@ public class RegisterFactory {
 		}
 
 		// plugin bus
-		PluginName pluginAnno = clazz.getAnnotation(PluginName.class);
+		Plugin pluginAnno = clazz.getAnnotation(Plugin.class);
 		if (null != pluginAnno) {
 			registers.add(pluginRegister);
 		}
