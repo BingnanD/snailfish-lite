@@ -2,9 +2,8 @@ package me.duanbn.snailfish.core.pluginbus;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import lombok.AccessLevel;
 import lombok.Setter;
 

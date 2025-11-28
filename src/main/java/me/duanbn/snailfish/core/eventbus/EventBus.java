@@ -2,10 +2,9 @@ package me.duanbn.snailfish.core.eventbus;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
+import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

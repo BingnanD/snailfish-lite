@@ -5,15 +5,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.util.CollectionUtils;
 
-import me.duanbn.snailfish.util.lang.StringUtil;
-
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import lombok.Data;
+import me.duanbn.snailfish.util.lang.StringUtil;
 
 /**
  * 
@@ -41,7 +39,7 @@ public class Validation {
 		}
 	}
 
-	private static Validator validator = javax.validation.Validation.byProvider(HibernateValidator.class).configure()
+	private static Validator validator = jakarta.validation.Validation.byProvider(HibernateValidator.class).configure()
 			.failFast(false).buildValidatorFactory().getValidator();
 
 	public static <T> ValidResult validateBean(T t, Class<?>... groups) {

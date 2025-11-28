@@ -2,12 +2,11 @@ package me.duanbn.snailfish.core;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
+import jakarta.annotation.Resource;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

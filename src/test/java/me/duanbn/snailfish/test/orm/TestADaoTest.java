@@ -5,11 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import me.duanbn.snailfish.api.persistence.Order;
 import me.duanbn.snailfish.core.orm.rdb.Query;

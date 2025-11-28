@@ -2,11 +2,10 @@ package me.duanbn.snailfish.core;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import jakarta.annotation.Resource;
 import lombok.Getter;
 import me.duanbn.snailfish.core.commandbus.CommandExecutorRegister;
 import me.duanbn.snailfish.core.commandbus.annotations.CommandExecutor;

@@ -16,7 +16,7 @@
 
 		<mysql.jdbc.version>8.0.28</mysql.jdbc.version>
 		<dm.jdbc.version>8.1.2.192</dm.jdbc.version>
-		<springboot.version>2.7.18</springboot.version>
+		<springboot.version>3.4.0</springboot.version>
 
 		<jdk.version>17</jdk.version>
 

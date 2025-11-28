@@ -1,11 +1,10 @@
 package me.duanbn.snailfish.core.commandbus;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 
+import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;

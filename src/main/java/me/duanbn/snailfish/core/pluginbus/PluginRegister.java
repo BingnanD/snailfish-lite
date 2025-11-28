@@ -3,8 +3,7 @@ package me.duanbn.snailfish.core.pluginbus;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import jakarta.annotation.Resource;
 import me.duanbn.snailfish.core.RegisterI;
 import me.duanbn.snailfish.util.ObjectUtil;
 import me.duanbn.snailfish.util.collection.Lists;

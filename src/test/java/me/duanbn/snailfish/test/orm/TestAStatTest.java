@@ -2,12 +2,11 @@ package me.duanbn.snailfish.test.orm;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.junit.jupiter.api.Test;
 
 import com.alibaba.fastjson.JSON;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import me.duanbn.snailfish.core.DataNode;
 import me.duanbn.snailfish.test.SnailfishTest;

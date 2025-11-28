@@ -2,10 +2,9 @@ package me.duanbn.snailfish.core.domain;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
+import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.Setter;
 import ma.glasnost.orika.converter.BidirectionalConverter;
